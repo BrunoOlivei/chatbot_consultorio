@@ -83,7 +83,6 @@ app.post("/webhook-ultramsg", (req, res) => {
       msg.includes("irmam")
     )
   ) {
-    /* TODO criar resposta com link de agendamento */
     responderWhatsApp(
       numero,
       "Esse canal é exclusivo para agendamento de consultas para os convênios São Lucas e Irman. Você pode visualizar os horários disponíveis e agendar através desse link: https://calendly.com/giovanademoraes/agendamento-de-consultas. \n Caso não haja horários disponíveis no momento, isso significa que nossa agenda está lotada. Recomendamos tentar novamente em alguns dias. Normalmente, novos horários são disponibilizados todas as segundas e quartas-feiras pela manhã."
@@ -103,7 +102,10 @@ app.post("/webhook-ultramsg", (req, res) => {
       msg.includes("doc")
     )
   ) {
-    "Esse canal é exclusivo para agendamento de consultas para os convênios Doctor. Você pode visualizar os horários disponíveis e agendar através desse link: https://calendly.com/giovanademoraes/consulta-convenio-1. \n Caso não haja horários disponíveis no momento, isso significa que nossa agenda está lotada. Recomendamos tentar novamente em alguns dias. Normalmente, novos horários são disponibilizados todas as segundas e quartas-feiras pela manhã."
+    responderWhatsApp(
+      numero,
+      "Esse canal é exclusivo para agendamento de consultas para os convênios Doctor. Você pode visualizar os horários disponíveis e agendar através desse link: https://calendly.com/giovanademoraes/consulta-convenio-1. \n Caso não haja horários disponíveis no momento, isso significa que nossa agenda está lotada. Recomendamos tentar novamente em alguns dias. Normalmente, novos horários são disponibilizados todas as segundas e quartas-feiras pela manhã."
+    )
   }
 
   /* Opção 3 - Para agendamentos de consultas particulares, digite 3*/
@@ -119,7 +121,10 @@ app.post("/webhook-ultramsg", (req, res) => {
       msg.includes("particular")
     )
   ) {
-    "Esse canal é exclusivo para agendamento de consultas Particulares. Você pode visualizar os horários disponíveis e agendar através desse link: https://calendly.com/giovanademoraes/agendamento. \n Caso não haja horários disponíveis no momento, isso significa que nossa agenda está lotada. Recomendamos tentar novamente em alguns dias. Normalmente, novos horários são disponibilizados todas as segundas e quartas-feiras pela manhã."
+    responderWhatsApp(
+      numero,
+      "Esse canal é exclusivo para agendamento de consultas Particulares. Você pode visualizar os horários disponíveis e agendar através desse link: https://calendly.com/giovanademoraes/agendamento. \n Caso não haja horários disponíveis no momento, isso significa que nossa agenda está lotada. Recomendamos tentar novamente em alguns dias. Normalmente, novos horários são disponibilizados todas as segundas e quartas-feiras pela manhã."
+    )
   }
 
   /* Opção 4 - Para saber o horário da sua consulta já agendada, digite 4*/ 
