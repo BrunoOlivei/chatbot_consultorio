@@ -50,7 +50,20 @@ app.post("/webhook-ultramsg", (req, res) => {
   ) {
       responderWhatsApp(
         numero,
-        "Olá! Eu sou a assistente responsável pelos agendamentos da Dra. Giovana. \nPara agendamentos de consultas pelos planos São Lucas ou Irman, digite 1 \nPara agendamentos de consultas pelo Doctor, digite 2 \nPara agendamentos de consultas particulares, digite 3 \nPara saber o horário da sua consulta já agendada, digite 4 \nPara saber o endereço do consultório, digite 5 \nPara saber o valor da consulta particular, digite 6 \nPara saber quais convênios a Dra. Giovana atende, digite 7 \nPara agendamento de avaliação para cirurgias (com encaminhamento médico), digite 8 \nPara falar com a secretária, digite 9");
+        "Olá! Eu sou a assistente responsável pelos agendamentos da Dra. Giovana.\n\n"
+      );
+      responderWhatsApp(
+        numero,
+        "1️⃣ Para agendamentos de consultas pelos planos São Lucas ou Irman, digite 1\n\n" + 
+        "2️⃣ Para agendamentos de consultas pelo Doctor, digite 2\n\n" +
+        "3️⃣ Para agendamentos de consultas particulares, digite 3\n\n" + 
+        "4️⃣ Para saber o horário da sua consulta já agendada, digite 4\n\n" + 
+        "5️⃣ Para saber o endereço do consultório, digite 5\n\n" + 
+        "6️⃣ Para saber o valor da consulta particular, digite 6\n\n" +
+        "7️⃣ Para saber quais convênios a Dra. Giovana atende, digite 7\n\n" + 
+        "8️⃣ Para agendamento de avaliação para cirurgias (com encaminhamento médico), digite 8\n\n" +
+        "9️⃣ Para falar com a secretária, digite 9"
+      )
   }
   
   /* Opção 1 - Para agendamentos de consultas pelos planos São Lucas ou Irman, digite 1 */
