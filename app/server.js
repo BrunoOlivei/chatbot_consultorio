@@ -9,21 +9,22 @@ const INSTANCE_ID = process.env.INSTANCE_ID;
 const TOKEN = process.env.TOKEN;
 const NUMERO_SECRETARIA = process.env.NUMERO_SECRETARIA;
 
-function responderWhatsApp(para, texto) {
-  axios.post(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
-    token: TOKEN,
-    to: para,
-    body: texto
-  }).then(() => {
+async function responderWhatsApp(para, texto) {
+  try {
+    await axios.post(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
+      token: TOKEN,
+      to: para,
+      body: texto
+    });
     console.log("✅ Resposta enviada para:", para);
-  }).catch((err) => {
+  } catch (err) {
     console.error("❌ Erro ao enviar resposta:", err.message);
-  });
+  }
 }
 
 app.use(bodyParser.json());
 
-app.post("/webhook-ultramsg", (req, res) => {
+app.post("/webhook-ultramsg", async (req, res) => {
   console.log("🧾 Corpo da requisição recebida:");
   console.log(JSON.stringify(req.body, null, 2));
 
@@ -40,7 +41,6 @@ app.post("/webhook-ultramsg", (req, res) => {
 
   const regexAgendamento = /((quero|gostaria|desejo|preciso|marcar|data|agendar|agendamento|disponibilidade|para quando|pra quando|quando tem).*(consulta|vaga|hor[áa]rio)?)|((tem|t[eê]m|existe|há).*(vaga|consulta|agendamento|hor[áa]rio|disponibilidade))/i;
 
-
   if (    
     msg.includes("bom dia") ||
     msg.includes("boa tarde") ||
@@ -48,23 +48,23 @@ app.post("/webhook-ultramsg", (req, res) => {
     msg.includes("oi") ||
     msg.includes("boa noite")
   ) {
-      responderWhatsApp(
+      await responderWhatsApp(
         numero,
         "Olá! Eu sou a assistente responsável pelos agendamentos da Dra. Giovana.\n\n"
-      ).then(() => {
-        return responderWhatsApp(
-          numero,
-          "1️⃣ Para agendamentos de consultas pelos planos São Lucas ou Irman, digite *1*\n\n" + 
-          "2️⃣ Para agendamentos de consultas pelo Doctor, digite *2*\n\n" +
-          "3️⃣ Para agendamentos de consultas particulares, digite *3*\n\n" + 
-          "4️⃣ Para saber o horário da sua consulta já agendada, digite *4*\n\n" + 
-          "5️⃣ Para saber o endereço do consultório, digite *5*\n\n" + 
-          "6️⃣ Para saber o valor da consulta particular, digite *6*\n\n" +
-          "7️⃣ Para saber quais convênios a Dra. Giovana atende, digite *7*\n\n" + 
-          "8️⃣ Para agendamento de avaliação para cirurgias (com encaminhamento médico), digite *8*\n\n" +
-          "9️⃣ Para falar com a secretária, digite *9*"
-        );
-      });
+      );
+
+      await responderWhatsApp(
+        numero,
+        "1️⃣ Para agendamentos de consultas pelos planos São Lucas ou Irman, digite *1*\n\n" + 
+        "2️⃣ Para agendamentos de consultas pelo Doctor, digite *2*\n\n" +
+        "3️⃣ Para agendamentos de consultas particulares, digite *3*\n\n" + 
+        "4️⃣ Para saber o horário da sua consulta já agendada, digite *4*\n\n" + 
+        "5️⃣ Para saber o endereço do consultório, digite *5*\n\n" + 
+        "6️⃣ Para saber o valor da consulta particular, digite *6*\n\n" +
+        "7️⃣ Para saber quais convênios a Dra. Giovana atende, digite *7*\n\n" + 
+        "8️⃣ Para agendamento de avaliação para cirurgias (com encaminhamento médico), digite *8*\n\n" +
+        "9️⃣ Para falar com a secretária, digite *9*"
+      );
   }
   
   /* Opção 1 - Para agendamentos de consultas pelos planos São Lucas ou Irman, digite 1 */
